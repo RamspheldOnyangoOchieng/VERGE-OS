@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENTINEL-X | Advanced Monitoring</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div id="alert-overlay"></div>
+
+    <div class="dashboard">
+        <header>
+            <div class="logo">SENTINEL-X</div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <button id="theme-toggle" class="theme-switch">
+                    <i class="fas fa-moon"></i>
+                    <span>Theme</span>
+                </button>
+                <div class="status-badge">
+                    <span class="dot"></span>
+                    <span>SYSTEM LIVE</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Vibration Section -->
+        <div class="card vibration-container">
+            <div class="card-title">
+                <i class="fas fa-wave-square"></i> Vibration Analysis
+            </div>
+            <div id="vibration-ring" class="vibration-ring">
+                <div class="stat-value" id="vib-status">IDLE</div>
+            </div>
+            <div style="margin-top: 20px; text-align: center; color: var(--text-dim);">
+                Detecting real-time kinetic anomalies
+            </div>
+        </div>
+
+        <!-- 3D Orientation Section -->
+        <div class="card visualizer-container">
+            <div class="card-title">
+                <i class="fas fa-cube"></i> Live Orientation (MPU6050)
+            </div>
+            <div id="canvas-container"></div>
+            <div
+                style="position: absolute; bottom: 20px; right: 20px; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px;">
+                <span style="color: var(--accent-primary)">X: <span id="val-ax">0.00</span>g</span> |
+                <span style="color: var(--accent-secondary)">Y: <span id="val-ay">0.00</span>g</span>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="card map-container">
+            <div class="card-title">
+                <i class="fas fa-location-dot"></i> GSM Location
+            </div>
+            <div id="map"></div>
+            <div id="loc-coords" style="margin-top: 10px; font-size: 13px; color: var(--text-dim);">
+                Lat: --, Lon: --
+            </div>
+        </div>
+
+        <!-- Stats Panel -->
+        <div class="stats-panel">
+            <div class="card">
+                <div class="card-title"><i class="fas fa-gear"></i> System Details</div>
+                <div class="stat-item">
+                    <div class="stat-label">MODE</div>
+                    <div class="stat-value" id="system-mode">DETECTION...</div>
+                </div>
+                <div class="stat-item" style="margin-top: 15px;">
+                    <div class="stat-label">AVG G-FORCE</div>
+                    <div class="stat-value" id="val-gforce">0.00</div>
+                </div>
+                <div id="alert-status"
+                    style="margin-top: 20px; padding: 15px; border-radius: 12px; text-align: center; background: rgba(0,255,136,0.1); color: var(--success); font-weight: 800;">
+                    STATUS: SECURE
+                </div>
+            </div>
+
+            <!-- New Trends Card -->
+            <div class="card trend-card">
+                <div class="card-title"><i class="fas fa-chart-line"></i> Tilt Trends</div>
+                <canvas id="trendChart"></canvas>
+            </div>
+
+            <div class="card trend-card">
+                <div class="card-title"><i class="fas fa-microchip"></i> Activity Log</div>
+                <div id="activity-log"
+                    style="font-size: 11px; font-family: monospace; overflow-y: auto; max-height: 150px; color: var(--text-dim);">
+                    <div>[SYSTEM] Initializing...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

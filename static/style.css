@@ -1,0 +1,301 @@
+:root {
+    /* Dark Theme (Deep Green) */
+    --bg-color: #06120a;
+    --card-bg: #0d1f14;
+    --accent-primary: #00ff88;
+    --accent-secondary: #00a35c;
+    --text-main: #e0ffe0;
+    --text-dim: #7a9c85;
+    --danger: #ff4d4d;
+    --success: #00ff88;
+    --glass-border: rgba(0, 255, 136, 0.15);
+    --inner-bg: rgba(0, 0, 0, 0.3);
+    --visualizer-bg-start: #06120a;
+    --visualizer-bg-end: #0a1f12;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] {
+    /* Light Theme (Supple Cyan) */
+    --bg-color: #f0faff;
+    --card-bg: #ffffff;
+    --accent-primary: #00bcd4;
+    --accent-secondary: #0097a7;
+    --text-main: #00373d;
+    --text-dim: #546e7a;
+    --danger: #d32f2f;
+    --success: #388e3c;
+    --glass-border: rgba(0, 188, 212, 0.2);
+    --inner-bg: #e1f5fe;
+    --visualizer-bg-start: #ffffff;
+    --visualizer-bg-end: #e0f7fa;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 350px 1fr 300px;
+    grid-template-rows: 80px 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    height: 100vh;
+}
+
+/* Header */
+header {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 0 30px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--success);
+    animation: pulse 2s infinite;
+}
+
+/* Base Card Style */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, background 0.5s ease, border-color 0.5s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-primary);
+}
+
+.card-title {
+    font-size: 14px;
+    color: var(--text-main);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Orientation Visualizer */
+.visualizer-container {
+    grid-column: 2 / 3;
+    grid-row: 2 / 4;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at center, var(--visualizer-bg-start) 0%, var(--visualizer-bg-end) 100%);
+}
+
+#canvas-container {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+/* Stats Panel */
+.stats-panel {
+    grid-column: 3 / 4;
+    grid-row: 2 / 4;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-item {
+    background: var(--inner-bg);
+    padding: 20px;
+    border-radius: 16px;
+    border-left: 4px solid var(--accent-primary);
+    transition: background 0.5s ease;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 5px 0;
+    color: var(--text-main);
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+/* Theme Toggle Button */
+.theme-switch {
+    background: var(--inner-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.theme-switch:hover {
+    background: var(--accent-primary);
+    color: white;
+}
+
+/* Map Section */
+.map-container {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    min-height: 250px;
+}
+
+/* Vibration Meter */
+.vibration-container {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+.vibration-ring {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 10px solid var(--inner-bg);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.5s;
+}
+
+.vibration-active {
+    border-color: var(--danger);
+    box-shadow: 0 0 30px var(--danger);
+    animation: shake 0.2s infinite;
+}
+
+/* Animations... */
+
+/* Animations */
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+}
+
+/* Alert Overlay */
+#alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 62, 62, 0.1);
+    border: 5px solid var(--danger);
+    z-index: 9999;
+    display: none;
+    pointer-events: none;
+    animation: alert-glow 1s infinite;
+}
+
+@keyframes alert-glow {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
